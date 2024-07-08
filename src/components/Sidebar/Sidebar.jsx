@@ -1,0 +1,66 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-key */
+import "./Sidebar.css";
+import { assets } from "../../assets/assets";
+import { useContext, useState } from "react";
+import { Context } from "../../context/Context";
+const Sidebar = () => {
+	const [extended, setExtended] = useState(false);
+	const { onSent, prevPrompts, setRecentPrompt, newChat } = useContext(Context);
+
+	const loadPreviousPrompt = async (prompt) => {
+		setRecentPrompt(prompt);
+		await onSent(prompt);
+	};
+	return (
+		<div className="sidebar">
+			<div className="top">
+				<img
+					src={assets.menu_icon}
+					className="menu"
+					alt="menu-icon"
+					onClick={() => {
+						setExtended((prev) => !prev);
+					}}
+				/>
+				<div className="new-chat">
+					<img src={assets.plus_icon} alt="" onClick={()=>{
+                        newChat()
+                    }} />
+					{extended ? <p>Nova conversa</p> : null}
+				</div>
+				{extended ? (
+					<div className="recent">
+						<p className="recent-title">Recentes</p>
+						{prevPrompts.map((item, index) => {
+							return (
+								<div onClick={()=>{
+                                    loadPreviousPrompt(item)
+                                }} className="recent-entry">
+									<img src={assets.message_icon} alt="" />
+									<p>{item.slice(0, 18)}...</p>
+								</div>
+							);
+						})}
+					</div>
+				) : null}
+			</div>
+			<div className="bottom">
+				<div className="bottom-item recent-entry">
+					<img src={assets.question_icon} alt="" />
+					{extended ? <p>Ajuda</p> : null}
+				</div>
+				<div className="bottom-item recent-entry">
+					<img src={assets.history_icon} alt="" />
+					{extended ? <p>Atividade</p> : null}
+				</div>
+				<div className="bottom-item recent-entry">
+					<img src={assets.setting_icon} alt="" />
+					{extended ? <p>Configurações</p> : null}
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default Sidebar;
