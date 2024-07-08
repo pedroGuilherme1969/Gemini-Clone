@@ -55,10 +55,10 @@ const Main = () => {
 							<div
 								className="card"
 								onClick={() =>
-									handleCardClick("Como virar sócio dos Gaviõess da Fiel Torcida?")
+									handleCardClick("Como virar sócio dos Gaviões da Fiel Torcida?")
 								}
 							>
-								<p>Como virar sócio dos Gaviõess da Fiel Torcida?</p>
+								<p>Como virar sócio dos Gaviões da Fiel Torcida?</p>
 								<img src={assets.bulb_icon} alt="" />
 							</div>
 							<div
